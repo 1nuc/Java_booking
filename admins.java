@@ -41,7 +41,7 @@ class Adding_Info{
 
         SaveToFile();
     }
-/* This can be imlemented in future use 
+/* This can be implemented in future use 
     public String get_ID(){
         return ID;
     }
