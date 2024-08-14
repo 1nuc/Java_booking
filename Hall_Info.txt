@@ -1,0 +1,10 @@
+HA445566, Star Hall , 655, sd, 65.0
+HA000013, nkines, 54, spain, 400.0
+HA655645, Auditorium, jkbhvs, 1000, 300.0, 
+HA454554, Meeting_Room, kjksf, 30, 50.0, 
+HA455444, Meeting_Room, jgeadgs, 30, 50.0, 
+HA212111, Auditorium, Spain, 1000, 300.0, 
+HA123456, Meeting_Room, hamerd, 30, 50.0, 
+HA900182, Banquet_Hall, jfghahjsDGQVW	, 300, 100.0, 
+HA445666, Auditorium, Spain, 1000, 300.0, 
+HA991622, Auditorium, Yemen, 1000, 300.0, 
