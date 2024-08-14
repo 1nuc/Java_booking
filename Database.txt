@@ -1,7 +1,0 @@
-ST131313, ahmed, ajaghfga, Staff, khjga,
-ST876234, ahmed, ahmed@gmail.com, Staff, Ahmed.323234,
-ST929743, hhjsdf, ahmed@fkjhjas, Staff, ljkhgs,
-CU424242, jjkgs, jkafg@jbjf, Customer, khkhfs,
-CU724624, ahmed, ahmed@gmail.com, Customer, jghfaos,
-CU242423, s, khhg@af, Customer, dsdgv,
-SC476527, ahmed, ahmed@gmail.com, Schedular, ahss,
