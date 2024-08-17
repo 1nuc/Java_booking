@@ -134,8 +134,6 @@ class availibility_schedule extends Hall_Management{
 
         ha_id=ID_Of_Hall();
         ha_Type=Type_Of_Hall();
-        
-        set_date_time();
         try (PrintWriter write = new PrintWriter("src/Schedular/Schedular/Hall_Availibility.txt")) {
 
             for (int i=0; i <ha_id.size();i++){
@@ -210,6 +208,10 @@ class availibility_schedule extends Hall_Management{
                 date[0] = null;
                 date[1] = null;
                 specify_date_time(date);  // Re-run the method to re-enter the dates
+            }else{
+                File file=new File("src/Schedular/Schedular/Hall_Maintenance.txt");
+                file.delete();
+                System.out.println("Maintenance record has been deleted please set the maintenance record again in the maintenance schedule section with the new date and time");
             }
         }
         
@@ -237,6 +239,7 @@ class availibility_schedule extends Hall_Management{
 
         set_Start_Date(start_date.format(formatter));
         set_End_Date(end_date.format(formatter));
+        save_date_time_to_file();
     
     }
 
@@ -507,9 +510,10 @@ public class Hall_Availibility{
     public static void main(String[] args){
         
         availibility_schedule h=new availibility_schedule(null, null, null, 0, 0,null,null,null);
-    //  h.set_data_time_Initially();
-    //h.Schedule_Maintenance();
-     h.Specific_Hall_availability();
+    //  h.save_date_time_to_file();
+//    h.Schedule_Maintenance();
+    // h.set_date_time();
+    h.Specific_Hall_availability();
         // h.Hall_search_filter("Hall_Info.txt");
         // h.delete_Hall_info();
         // h.set_Hall_info();
