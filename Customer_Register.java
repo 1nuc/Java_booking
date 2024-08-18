@@ -32,35 +32,90 @@ class Customer_Register extends admins {
     @Override
     public void Set_info() {
         try (Scanner scan = new Scanner(System.in)) {
-            System.out.println("First Name:");
-            setFirstName(scan.nextLine());
+            // First Name validation
+            while (true) {
+                System.out.println("First Name (letters only):");
+                String input = scan.nextLine().trim();
+                if (input.matches("[a-zA-Z]+")) {
+                    setFirstName(input);
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter letters only.");
+                }
+            }
             
-            System.out.println("Last Name:");
-            setLastName(scan.nextLine());
+            // Last Name validation
+            while (true) {
+                System.out.println("Last Name (letters only):");
+                String input = scan.nextLine().trim();
+                if (input.matches("[a-zA-Z]+")) {
+                    setLastName(input);
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter letters only.");
+                }
+            }
             
-            System.out.println("Address:");
-            setAddress(scan.nextLine());
+            // Address validation (basic, non-empty)
+            while (true) {
+                System.out.println("Address:");
+                String input = scan.nextLine().trim();
+                if (!input.isEmpty()) {
+                    setAddress(input);
+                    break;
+                } else {
+                    System.out.println("Address cannot be empty. Please try again.");
+                }
+            }
             
-            System.out.println("Phone Number:");
-            setPhoneNumber(scan.nextLine());
+            // Phone Number validation (basic, digits only)
+            while (true) {
+                System.out.println("Phone Number (digits only):");
+                String input = scan.nextLine().trim();
+                if (input.matches("\\d+")) {
+                    setPhoneNumber(input);
+                    break;
+                } else {
+                    System.out.println("Invalid phone number. Please enter digits only.");
+                }
+            }
             
-            Boolean Valid_Email = false;
-            while (!Valid_Email) {
+            // Email validation
+            while (true) {
                 System.out.println("Email:");
-                set_Email(scan.nextLine());
-                Valid_Email = email_checking();
+                String input = scan.nextLine().trim();
+                if (email_checking(input)) {
+                    set_Email(input);
+                    break;
+                } else {
+                    System.out.println("Invalid email format. Please try again.");
+                }
             }
 
             // Generate and set a unique customer ID
             set_ID(generateUniqueCustomerID());
             set_Role("Customer");
 
-            System.out.println("Password:");
-            set_Password(scan.nextLine());
+            // Password validation (basic, non-empty)
+            while (true) {
+                System.out.println("Password:");
+                String input = scan.nextLine().trim();
+                if (!input.isEmpty()) {
+                    set_Password(input);
+                    break;
+                } else {
+                    System.out.println("Password cannot be empty. Please try again.");
+                }
+            }
         }
 
         SaveToFile();
         System.out.println("Successfully registered with Customer ID: " + get_ID());
+    }
+
+    
+    private Boolean email_checking(String email) {
+    return Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", email);
     }
 
     private String generateUniqueCustomerID() {
@@ -71,6 +126,7 @@ class Customer_Register extends admins {
         return id;
     }
 
+    // checks if the customerid already exists
     private boolean idExists(String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader("C:/Users/sagl3/OneDrive/Desktop/Java_Assignment/Java_Assignment/src/Customer/Customer/customer.txt"))) {
             String line;
@@ -84,15 +140,6 @@ class Customer_Register extends admins {
             System.out.println("Error checking for existing IDs: " + e.getMessage());
         }
         return false;
-    }
-
-    private Boolean email_checking() {
-        if (Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", get_Email())) {
-            return true;
-        } else {
-            System.out.println("Incorrect Email entered. Please try again.");
-            return false;
-        }
     }
 
     public void SaveToFile() {
