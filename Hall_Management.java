@@ -124,17 +124,18 @@ public class Hall_Management extends Hall_info{
     }
     
     public void view_file(String FileName){
-            try {
                 try (BufferedReader reader = new BufferedReader(new FileReader(FileName))) {
                     String Lines;
                     while((Lines=reader.readLine())!=null){
                         System.out.println(Lines);
                     }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    System.out.println("Error reading the file");
                 }
-            } catch (IOException e) {
-                // TO Auto-generated catch block
-                System.out.println("Error");
-            }
+            
+            
     }
 
 
