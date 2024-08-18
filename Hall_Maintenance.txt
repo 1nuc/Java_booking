@@ -1,3 +1,0 @@
-Hall ID: HA991622, Maintenance Start Date: 2024-08-24 08:00 AM, Maintenance End Date: 2024-08-29 08:00 PM
-Hall ID: HA655645, Maintenance Start Date: 2024-08-10 08:00 AM, Maintenance End Date: 2024-08-12 08:00 PM
-Hall ID: HA445666, Maintenance Start Date: 2024-08-09 12:00 AM, Maintenance End Date: 2024-08-12 12:00 AM
