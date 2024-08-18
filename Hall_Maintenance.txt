@@ -1,0 +1,2 @@
+Hall ID: HA010101, Maintenance Start Date: 2024-09-12 10 AM, Maintenance End Date: 2024-09-16 10 PM, Remarks: server problems
+Hall ID: HA123456, Maintenance Start Date: 2024-06-18 08 AM, Maintenance End Date: 2024-06-25 08 PM, Remarks: AC
