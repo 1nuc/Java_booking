@@ -1,9 +1,13 @@
 package Schedular;
 
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.time.LocalDate;
@@ -13,9 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 
 
@@ -140,12 +146,11 @@ public class availibility_schedule extends Hall_Maintenance{
 
 
 
-    public void Specific_Hall_availability(){
+    public void Specific_Hall_availability(String id){
 
         //call the method of setting the start and end date
         Extract_date_Time("src/Schedular/Schedular/Hall_Availibility.txt");
 
-        try (Scanner scan = new Scanner(System.in)) {
             DateTimeFormatter General_date_format=DateTimeFormatter.ofPattern("yyyy-MM-dd hh a");
             LocalDateTime start_date=LocalDateTime.parse(get_Start_Date(),General_date_format);
             LocalDateTime end_date=LocalDateTime.parse(get_End_Date(),General_date_format);
@@ -153,12 +158,12 @@ public class availibility_schedule extends Hall_Maintenance{
             DateTimeFormatter date_format=DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter time_format=DateTimeFormatter.ofPattern("hh:mm a");
             
-
-            System.out.println("Enter Hall ID to display its own availability: ");
-            String id=scan.nextLine();
-
             List<String>HallIDs=ID_Of_Hall();
             List<String>HallTypes=Type_Of_Hall();
+
+            List<LocalDateTime[]> bookings = readBookingDateTime(id);
+            List<LocalDateTime[]> Maintenance_Range=read_M_Date_Time(id);
+
             LocalDateTime M_S_Date=null;
             LocalDateTime M_E_Date=null;
             //check if the value exists by detrimining the number of index in the list
@@ -174,14 +179,23 @@ public class availibility_schedule extends Hall_Maintenance{
 
                     // set a list to track the available days in the list
                     List <String> Ava_days=get_available_days();
-
+                    
                     System.out.println("Hall ID: "+id+", "+ "Hall Type: "+h_type);
-                    List<LocalDateTime[]> Maintenance_Range=read_M_Date_Time(id);
-
 
                     while(!start_date.isAfter(end_date)){
                             String Day_Name = start_date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
                             Boolean Is_Under_Maintenance=false;
+                            boolean isBooked = false;
+
+                            for (LocalDateTime[] period : bookings) {
+                                if (!start_date.toLocalDate().isBefore(period[0].toLocalDate())
+                                    && !start_date.toLocalDate().isAfter(period[1].toLocalDate())) {
+                                    isBooked = true;
+                                    break;
+                                }
+                            }
+
+                    
                             for(LocalDateTime[] range:Maintenance_Range){
                                 if( !start_date.toLocalDate().isBefore(range[0].toLocalDate()) 
                                 && !start_date.toLocalDate().isAfter(range[1].toLocalDate()) ){
@@ -190,7 +204,7 @@ public class availibility_schedule extends Hall_Maintenance{
                                     Is_Under_Maintenance=true;
                                     break;
                                 }
-                            }
+                            }                            
 
                             if(Is_Under_Maintenance){
                                 String availability= String.format("Date: %s, Day: %s, Under Maintenance from %s To %s",
@@ -200,8 +214,12 @@ public class availibility_schedule extends Hall_Maintenance{
                                 M_E_Date.format(time_format));
                                 System.out.println(availability);
 
-                            }
-                            else if( Ava_days.contains(Day_Name)){
+                            }else if (isBooked) {
+                                System.out.printf("Date: %s, Day: %s, Already Booked\n",
+                                        start_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                        Day_Name);
+
+                            }else if( Ava_days.contains(Day_Name)){
                                 String availability= String.format("Date: %s, Day: %s, Available from %s To %s",
                                 start_date.format(date_format),
                                 Day_Name,
@@ -219,9 +237,8 @@ public class availibility_schedule extends Hall_Maintenance{
             }else{
                 System.out.println("Not found");
             }
-        }
-        
 
 
     }
+    
 }
