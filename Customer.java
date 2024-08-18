@@ -89,30 +89,50 @@ public class Customer extends availibility_schedule{
         this.customerID = customerID;
     }    
 
-    // Update Profile 
-    public void updateProfile(String mobileNumber, String email, String address) {
-        setMobileNumber(mobileNumber);
-        
-        // Validate email before setting it
-        boolean validEmail = false;
-        while (!validEmail) {
-            if (email_checking(email)) {
-                setEmail(email);
-                validEmail = true;
+    public void updateProfile() {
+        Scanner scanner = new Scanner(System.in);
+    
+        // Update Mobile Number
+        while (true) {
+            System.out.println("Enter new Mobile Number (digits only, or press Enter to keep current):");
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                break;
+            }
+            if (input.matches("\\d+")) {
+                setMobileNumber(input);
+                break;
             } else {
-                System.out.println("Invalid email. Please enter a valid email address:");
-                try (Scanner scanner = new Scanner(System.in)) {
-                    email = scanner.nextLine();
-                }
+                System.out.println("Invalid input. Please enter digits only.");
             }
         }
-        
-        setAddress(address);
+    
+        // Update Email
+        while (true) {
+            System.out.println("Enter new Email (or press Enter to keep current):");
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                break;
+            }
+            if (email_checking(input)) {
+                setEmail(input);
+                break;
+            } else {
+                System.out.println("Invalid email format. Please try again.");
+            }
+        }
+    
+        // Update Address
+        System.out.println("Enter new Address (or press Enter to keep current):");
+        String newAddress = scanner.nextLine().trim();
+        if (!newAddress.isEmpty()) {
+            setAddress(newAddress);
+        }
+    
         updateCustomerFile();
     }
     
     private void updateCustomerFile() {
-        // Update customer.txt with the new information
         try {
             List<String> fileContent = new ArrayList<>(Files.readAllLines(Paths.get("C:/Users/sagl3/OneDrive/Desktop/Java_Assignment/Java_Assignment/src/Customer/Customer/customer.txt")));
             for (int i = 0; i < fileContent.size(); i++) {
@@ -130,15 +150,9 @@ public class Customer extends availibility_schedule{
     }
     
     private Boolean email_checking(String email) {
-        if (Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", email)) {
-            return true;
-        } else {
-            System.out.println("Incorrect Email entered. Please try again.");
-            return false;
-        }
+        return Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", email);
     }
-
-
+    
     @Override
     public void Hall_search_filter(String FileName) {
         super.Hall_search_filter(FileName);
@@ -197,8 +211,3 @@ public class Customer extends availibility_schedule{
 
     
 }
-
-
-
-
-
