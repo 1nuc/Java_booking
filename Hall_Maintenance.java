@@ -56,7 +56,7 @@ public class Hall_Maintenance extends Hall_Availability {
 
     public void Schedule_Maintenance(){
 
-        view_file("src/Schedular/Schedular/Hall_Availibility.txt");
+        Extract_date_Time("src/Schedular/Schedular/Hall_Availibility.txt");
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd hh a");
         DateTimeFormatter dateformat=DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeformat=DateTimeFormatter.ofPattern("hh a");
@@ -106,7 +106,7 @@ public class Hall_Maintenance extends Hall_Availability {
                     
                     System.out.println("Enter the maintenance End date (yyyy-MM-dd): ");
                     String M_End_Date = scan.nextLine();
-                    System.out.println("Enter the maintenance start time (hh:mm AM/PM): ");
+                    System.out.println("Enter the maintenance end time (hh:mm AM/PM): ");
                     String M_End_Time = scan.nextLine();
                     
                     if(!M_End_Date.matches("\\d{4}-\\d{2}-\\d{2}") || !Year_Valid(M_End_Date)){
