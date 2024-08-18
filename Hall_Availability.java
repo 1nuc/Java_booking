@@ -108,8 +108,7 @@ public class Hall_Availability extends Hall_Management{
     }
     //this is for the rest of roles
     //Make sure to use this function when reading any file either by inhereting it or applying polymoriphism
-    @Override
-    public void view_file(String FileName) {
+    public void Extract_date_Time(String FileName) {
         // TODO Auto-generated method stub
         try {
             try (BufferedReader reader = new BufferedReader(new FileReader(FileName))) {
@@ -126,7 +125,7 @@ public class Hall_Availability extends Hall_Management{
             System.out.println("Error");
         }    
     }
-
+//our assumption for the day's availbility for each Hall
     public void check_available_days(String Hall_Type){
         List<String> all_days =Arrays.asList("Monday","Tuesday","Wednesday","Thursday","Friday");
         List<String> work_days =Arrays.asList("Monday","Tuesday","Wednesday","Thursday");
