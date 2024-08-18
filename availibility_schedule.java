@@ -143,7 +143,7 @@ public class availibility_schedule extends Hall_Maintenance{
     public void Specific_Hall_availability(){
 
         //call the method of setting the start and end date
-        view_file("src/Schedular/Schedular/Hall_Availibility.txt");
+        Extract_date_Time("src/Schedular/Schedular/Hall_Availibility.txt");
 
         try (Scanner scan = new Scanner(System.in)) {
             DateTimeFormatter General_date_format=DateTimeFormatter.ofPattern("yyyy-MM-dd hh a");
@@ -183,7 +183,8 @@ public class availibility_schedule extends Hall_Maintenance{
                             String Day_Name = start_date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
                             Boolean Is_Under_Maintenance=false;
                             for(LocalDateTime[] range:Maintenance_Range){
-                                if( !start_date.isBefore(range[0]) && !start_date.isAfter(range[1]) ){
+                                if( !start_date.toLocalDate().isBefore(range[0].toLocalDate()) 
+                                && !start_date.toLocalDate().isAfter(range[1].toLocalDate()) ){
                                     M_S_Date=range[0];
                                     M_E_Date=range[1];
                                     Is_Under_Maintenance=true;
